@@ -1,6 +1,7 @@
 # Project Shitstorm Reloaded
 
 ## Get started (IntelliJ)
-
-    git clone URL && cd project-shitstorm
-    gradlew idea
+```bash
+git clone URL && cd project-shitstorm
+gradlew idea
+```
