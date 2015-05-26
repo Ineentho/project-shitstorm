@@ -1,5 +1,12 @@
 language: java
 jdk:
-  - openjdk7
+- openjdk7
 before_install:
-  - chmod +x gradlew
+- chmod +x gradlew
+deploy:
+  provider: releases
+  api_key:
+    secure: ac/H+Gaqgd/dpOD23pMR7PnmrNx9N1C8Wr5N4OiVbWcWL51zsMo5/bwr2eL4RfGJ1ydTRBeSKfIgJ9wEaIcFpNp8SgEhcdOXzZcFcFRP4OPxylZT8rxIao/6X/8e+d4tzcf60dVAi9NhDVY7Nxol4mRogYblVG6y7rpY5N0U9PNhcVvy0Jc3KHAi+5QOcngr3xJdaPhMGLHxN9BBJBcjLDF50NObVIEE2TWOL1qftnD+nMjYDuDIM3c7XRUXQ/Jv+ZYdUPzc7DNrwMIaKX5/FXpQMcUL8nsDy/iaC5oAIRefw6TG8FRaPaHMldSmA4s5HatfQlSrqe002s4B2AKGa7JZo0M+VKjimsbnCGngtrUrwRxlDdfh35ddejEM2E1ID2qx5URQjfbGCKITAO0NmAwxWUagsNmwPnj6R9B4NyBmj47IgC6exjKN85DKa/E5N1fGZrfPleLCpJBfy3fz547HihODthVKm8cZm3O7qth4h/gHcs5GoCwUPDUf3wESffGLK1ve80E1ByHTa0SquNQj/4b+9yc9X9qwOQiZHDLha3XXtYsuGTY3mSQE+DSBA4w+JbKpoCHOye2+x3wt2UaXzhjbFtW6WS866X6VwSG/EaiDlhYDXYvcDAqqbxmXJhQ+aBYjGwKexe5wtsYGXd7ku8NTbS4HZ3gFinFSfhU=
+  file: desktop\build\libs\desktop-1.0.jar
+  on:
+    repo: Ineentho/project-shitstorm
