@@ -1,10 +1,12 @@
-package com.ineentho.shitstorm;
+package com.ineentho.shitstorm.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.ineentho.shitstorm.ProjectShitstorm;
+import com.ineentho.shitstorm.util.Facing;
 import com.ineentho.shitstorm.weapon.Axe;
 import com.ineentho.shitstorm.weapon.Weapon;
 

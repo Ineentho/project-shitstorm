@@ -3,8 +3,8 @@ package com.ineentho.shitstorm.weapon;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.ineentho.shitstorm.Facing;
-import com.ineentho.shitstorm.LivingEntity;
+import com.ineentho.shitstorm.util.Facing;
+import com.ineentho.shitstorm.entity.LivingEntity;
 import com.ineentho.shitstorm.ProjectShitstorm;
 
 public class Axe extends Weapon {

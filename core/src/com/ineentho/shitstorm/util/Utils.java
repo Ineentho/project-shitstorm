@@ -1,4 +1,4 @@
-package com.ineentho.shitstorm;
+package com.ineentho.shitstorm.util;
 
 import com.badlogic.gdx.math.Vector2;
 

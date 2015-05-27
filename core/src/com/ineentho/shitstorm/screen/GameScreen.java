@@ -1,4 +1,4 @@
-package com.ineentho.shitstorm;
+package com.ineentho.shitstorm.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.ineentho.shitstorm.entity.PlayerCharacter;
+import com.ineentho.shitstorm.ProjectShitstorm;
+import com.ineentho.shitstorm.entity.LivingEntity;
+import com.ineentho.shitstorm.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
