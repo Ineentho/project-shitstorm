@@ -5,3 +5,6 @@
 git clone URL && cd project-shitstorm
 gradlew idea
 ```
+
+## Download
+The game is automatically built for each new commit and is published at [shitstorm.ineentho.com](http://shitstorm.ineentho.com/).
