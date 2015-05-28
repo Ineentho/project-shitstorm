@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.ineentho.shitstorm.entity.LivingEntity;
+import com.ineentho.shitstorm.util.Facing;
 
 public class PlayerCharacter extends LivingEntity {
 
@@ -20,17 +21,11 @@ public class PlayerCharacter extends LivingEntity {
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-			movingRight = true;
+			setMovingDirection(Facing.RIGHT, true);
+		} else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+			setMovingDirection(Facing.LEFT, true);
 		} else {
-			movingRight = false;
-			justStoppedMovingLeft = true;
-		}
-
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-			movingLeft = true;
-		} else {
-			movingLeft = false;
-			justStoppedMovingRight = true;
+			setMovingDirection(null, false);
 		}
 
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {

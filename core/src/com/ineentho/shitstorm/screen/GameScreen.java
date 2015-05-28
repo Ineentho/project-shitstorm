@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.ineentho.shitstorm.entity.AiEntity;
 import com.ineentho.shitstorm.entity.PlayerCharacter;
 import com.ineentho.shitstorm.ProjectShitstorm;
 import com.ineentho.shitstorm.entity.LivingEntity;
@@ -31,7 +32,7 @@ public class GameScreen extends ScreenAdapter {
 
 
 		for (int i = 0; i < 50; i++) {
-			LivingEntity enemy = new LivingEntity(world, game.getTexture("bomb"), new Vector2(1, 1));
+			LivingEntity enemy = new AiEntity(world, game.getTexture("bomb"), new Vector2(1, 1));
 			enemy.teleport(new Vector2((float) (Math.random() * 200) - 100, 0), 0);
 			entities.add(enemy);
 		}

@@ -15,12 +15,10 @@ public class LivingEntity {
 	protected final Sprite sprite;
 	protected final Body body;
 
-	protected boolean movingLeft;
-	protected boolean movingRight;
-	protected boolean justStoppedMovingLeft;
-	protected boolean justStoppedMovingRight;
+	private Facing movementDirection = Facing.RIGHT;
+	private boolean moving;
+	private boolean justStoppedMoving;
 	private Vector2 size;
-	private Facing facing = Facing.RIGHT;
 
 	Weapon weapon;
 	private LivingEntity target;
@@ -82,7 +80,7 @@ public class LivingEntity {
 		sprite.setRotation((float) Math.toDegrees(body.getAngle()));
 
 		Vector2 offset;
-		if (facing == Facing.RIGHT) {
+		if (movementDirection == Facing.RIGHT) {
 			offset = new Vector2(.74f, .5f);
 		} else {
 			offset = new Vector2(-1.74f, .5f);
@@ -92,30 +90,25 @@ public class LivingEntity {
 	}
 
 	private void updateMovement() {
-		Facing lastFacing = facing;
-		if (movingLeft) {
-			facing = Facing.LEFT;
-			if (body.getLinearVelocity().x > -10)
-				body.applyForce(-100, 0, sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2, true);
-			else
-				body.setLinearVelocity(-10, body.getLinearVelocity().y);
-		} else if (justStoppedMovingLeft) {
-			body.setLinearVelocity(0, body.getLinearVelocity().y);
-			justStoppedMovingLeft = false;
-		}
-		if (movingRight) {
-			facing = Facing.RIGHT;
-			if (body.getLinearVelocity().x < 10)
-				body.applyForce(100, 0, sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2, true);
-			else
-				body.setLinearVelocity(10, body.getLinearVelocity().y);
-		} else if (justStoppedMovingRight) {
-			body.setLinearVelocity(0, body.getLinearVelocity().y);
-			justStoppedMovingRight = false;
+		if (moving) {
+			if (movementDirection == Facing.LEFT) {
+				if (body.getLinearVelocity().x > -10)
+					body.applyForce(-100, 0, sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2, true);
+				else
+					body.setLinearVelocity(-10, body.getLinearVelocity().y);
+			}
+
+			if (movementDirection == Facing.RIGHT) {
+				if (body.getLinearVelocity().x < 10)
+					body.applyForce(100, 0, sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2, true);
+				else
+					body.setLinearVelocity(10, body.getLinearVelocity().y);
+			}
 		}
 
-		if (lastFacing != facing) {
-			changedDirection();
+		if (justStoppedMoving) {
+			body.setLinearVelocity(0, body.getLinearVelocity().y);
+			justStoppedMoving = false;
 		}
 	}
 
@@ -137,6 +130,22 @@ public class LivingEntity {
 	}
 
 	public Facing getFacing() {
-		return facing;
+		return movementDirection;
+	}
+
+	public void setMovingDirection(Facing direction, boolean moving) {
+		Facing preDirection = this.movementDirection;
+		if (direction != null)
+			this.movementDirection = direction;
+
+		boolean preMoving = this.moving;
+		this.moving = moving;
+		if (!moving && preMoving) {
+			justStoppedMoving = true;
+		}
+
+		if (preDirection != movementDirection) {
+			changedDirection();
+		}
 	}
 }
