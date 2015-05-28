@@ -15,4 +15,5 @@ fileName() {
     echo project-shitstorm-reloaded-$(isoDate)-$(shortHash).jar
 }
 
+./gradlew desktop:dist
 scp ${source} ${server}$(fileName)
