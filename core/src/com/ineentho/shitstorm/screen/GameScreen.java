@@ -107,8 +107,9 @@ public class GameScreen extends ScreenAdapter {
 
 	@Override
 	public void resize(int width, int height) {
-		cam.viewportWidth = 20f;
-		cam.viewportHeight = 20f * height / width;
+		float scale = 0.03f;
+		cam.viewportWidth = scale * width;
+		cam.viewportHeight = scale * height;
 		cam.update();
 	}
 }
