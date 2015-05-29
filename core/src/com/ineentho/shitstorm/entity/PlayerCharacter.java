@@ -5,10 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.ineentho.shitstorm.ProjectShitstorm;
 import com.ineentho.shitstorm.entity.LivingEntity;
 import com.ineentho.shitstorm.util.Facing;
 
 public class PlayerCharacter extends LivingEntity {
+	private int tickTimer = 0;
 
 	public PlayerCharacter(World world, Texture texture, Vector2 size) {
 		super(world, texture, size);
@@ -35,4 +37,21 @@ public class PlayerCharacter extends LivingEntity {
 		super.update(delta);
 	}
 
+	@Override
+	protected void preDraw() {
+		tickTimer++;
+		if (isMoving()) {
+			updateWalkingAnimation();
+		}
+	}
+
+	private void updateWalkingAnimation() {
+		if (tickTimer % 15 == 0) {
+			if (tickTimer % 30 == 0) {
+				sprite.setTexture(ProjectShitstorm.getInstance().getTexture("cooldude1"));
+			} else {
+				sprite.setTexture(ProjectShitstorm.getInstance().getTexture("cooldude2"));
+			}
+		}
+	}
 }

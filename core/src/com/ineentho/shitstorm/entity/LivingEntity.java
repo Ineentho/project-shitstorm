@@ -37,8 +37,13 @@ public class LivingEntity {
 	}
 
 	public void draw(SpriteBatch batch) {
+		preDraw();
 		sprite.draw(batch);
 		weapon.draw(batch);
+	}
+
+	protected void preDraw() {
+
 	}
 
 	public boolean hasTarget() {
@@ -147,5 +152,9 @@ public class LivingEntity {
 		if (preDirection != movementDirection) {
 			changedDirection();
 		}
+	}
+
+	protected boolean isMoving() {
+		return moving;
 	}
 }
