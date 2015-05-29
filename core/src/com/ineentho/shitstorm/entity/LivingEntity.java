@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.ineentho.shitstorm.ProjectShitstorm;
+import com.ineentho.shitstorm.collision.CollisionableEntity;
 import com.ineentho.shitstorm.util.Facing;
 import com.ineentho.shitstorm.weapon.Axe;
 import com.ineentho.shitstorm.weapon.Weapon;
 
-public class LivingEntity {
-
+public class LivingEntity implements CollisionableEntity {
 	protected final Sprite sprite;
 	protected final Body body;
 
@@ -23,12 +23,13 @@ public class LivingEntity {
 	Weapon weapon;
 	private LivingEntity target;
 
-	public LivingEntity(World world, Texture texture, Vector2 size) {
+	public LivingEntity(World world, Texture texture, Vector2 size, short filterCategory) {
 		this.size = size;
 		sprite = new Sprite(texture);
 		sprite.setSize(size.x * 2, size.y * 2);
 		body = createBody(world);
-		createFixture(body);
+		body.setUserData(this);
+		createFixture(body, filterCategory);
 		weapon = new Axe(this);
 	}
 
@@ -55,7 +56,7 @@ public class LivingEntity {
 	}
 
 
-	private void createFixture(Body body) {
+	private void createFixture(Body body, short filterCategory) {
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(size.x, size.y);
 
@@ -63,7 +64,8 @@ public class LivingEntity {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 0.1f;
-
+		fixtureDef.filter.categoryBits = filterCategory;
+		fixtureDef.filter.maskBits = (short) ~filterCategory;
 		body.createFixture(fixtureDef);
 		shape.dispose();
 	}
@@ -156,5 +158,18 @@ public class LivingEntity {
 
 	protected boolean isMoving() {
 		return moving;
+	}
+
+	@Override
+	public void onCollision(Body other) {
+		Object userData = other.getUserData();
+		if (userData instanceof LivingEntity) {
+			LivingEntity otherEntity = (LivingEntity) userData;
+			onCollideWith(otherEntity);
+		}
+	}
+
+	protected void onCollideWith(LivingEntity otherEntity) {
+
 	}
 }

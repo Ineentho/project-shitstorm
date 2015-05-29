@@ -3,6 +3,7 @@ package com.ineentho.shitstorm.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.ineentho.shitstorm.collision.FilterCategories;
 import com.ineentho.shitstorm.util.Facing;
 
 import java.util.Random;
@@ -11,7 +12,7 @@ public class AiEntity extends LivingEntity {
     Random r = new Random();
 
     public AiEntity(World world, Texture texture, Vector2 size) {
-        super(world, texture, size);
+        super(world, texture, size, FilterCategories.MONSTER);
     }
 
     @Override

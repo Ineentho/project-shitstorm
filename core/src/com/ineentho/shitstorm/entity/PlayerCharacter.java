@@ -5,15 +5,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.ineentho.shitstorm.collision.FilterCategories;
 import com.ineentho.shitstorm.ProjectShitstorm;
-import com.ineentho.shitstorm.entity.LivingEntity;
 import com.ineentho.shitstorm.util.Facing;
 
 public class PlayerCharacter extends LivingEntity {
 	private int tickTimer = 0;
 
 	public PlayerCharacter(World world, Texture texture, Vector2 size) {
-		super(world, texture, size);
+		super(world, texture, size, FilterCategories.PLAYER);
 	}
 
 	@Override
@@ -53,5 +53,10 @@ public class PlayerCharacter extends LivingEntity {
 				sprite.setTexture(ProjectShitstorm.getInstance().getTexture("cooldude2"));
 			}
 		}
+	}
+
+	@Override
+	protected void onCollideWith(LivingEntity otherEntity) {
+		ProjectShitstorm.getInstance().restartGame();
 	}
 }

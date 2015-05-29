@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.ineentho.shitstorm.collision.CollisionListener;
+import com.ineentho.shitstorm.collision.FilterCategories;
 import com.ineentho.shitstorm.entity.AiEntity;
 import com.ineentho.shitstorm.entity.PlayerCharacter;
 import com.ineentho.shitstorm.ProjectShitstorm;
@@ -27,6 +29,7 @@ public class GameScreen extends ScreenAdapter {
 		ProjectShitstorm game = ProjectShitstorm.getInstance();
 
 		world = new World(new Vector2(0f, -9.82f), true);
+		world.setContactListener(new CollisionListener());
 		mainChar = new PlayerCharacter(world, game.getTexture("cooldude1"), new Vector2(34 / 34f, 56 / 34f));
 		cam = createCamera();
 
@@ -39,7 +42,7 @@ public class GameScreen extends ScreenAdapter {
 
 		entities.add(mainChar);
 
-		LivingEntity eyes = new LivingEntity(world, game.getTexture("eyes"), new Vector2(1, 1));
+		LivingEntity eyes = new AiEntity(world, game.getTexture("eyes"), new Vector2(1, 1));
 		eyes.teleport(new Vector2(5, 0), 0);
 		entities.add(eyes);
 
@@ -57,7 +60,12 @@ public class GameScreen extends ScreenAdapter {
 
 		PolygonShape groundBox = new PolygonShape();
 		groundBox.setAsBox(100f, 1f);
-		groundBody.createFixture(groundBox, 0.0f);
+
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = groundBox;
+		fixtureDef.filter.categoryBits = FilterCategories.SCENERY;
+		fixtureDef.filter.maskBits = -1;
+		groundBody.createFixture(fixtureDef);
 		groundBox.dispose();
 	}
 

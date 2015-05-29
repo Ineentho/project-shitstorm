@@ -57,11 +57,15 @@ public class ProjectShitstorm extends Game {
 	public void render() {
 		if (isLoading) {
 			if (assetManager.update()) {
-				setScreen(new GameScreen());
+				restartGame();
 				isLoading = false;
 			}
 		}
 		super.render();
+	}
+
+	public void restartGame() {
+		setScreen(new GameScreen());
 	}
 
 	public Texture getTexture(String texture) {
