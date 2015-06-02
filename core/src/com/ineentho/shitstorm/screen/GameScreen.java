@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.ineentho.shitstorm.collision.BodyTypes;
 import com.ineentho.shitstorm.collision.CollisionListener;
 import com.ineentho.shitstorm.collision.FilterCategories;
 import com.ineentho.shitstorm.entity.AiEntity;
@@ -57,6 +58,7 @@ public class GameScreen extends ScreenAdapter {
 		groundBodyDef.position.set(new Vector2(-50, -1));
 
 		Body groundBody = world.createBody(groundBodyDef);
+		groundBody.setUserData(BodyTypes.GROUND);
 
 		PolygonShape groundBox = new PolygonShape();
 		groundBox.setAsBox(100f, 1f);

@@ -12,7 +12,7 @@ public class CollisionListener implements ContactListener {
     private void sendContact(Fixture fixture, Fixture other) {
         Object userData = fixture.getBody().getUserData();
         if (userData instanceof CollisionableEntity) {
-            ((CollisionableEntity) userData).onCollision(other.getBody());
+            ((CollisionableEntity) userData).onCollision(fixture, other.getBody());
         }
     }
 

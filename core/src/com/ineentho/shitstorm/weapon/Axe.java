@@ -3,6 +3,9 @@ package com.ineentho.shitstorm.weapon;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
 import com.ineentho.shitstorm.util.Facing;
 import com.ineentho.shitstorm.entity.LivingEntity;
 import com.ineentho.shitstorm.ProjectShitstorm;
@@ -12,12 +15,27 @@ public class Axe extends Weapon {
 	private float rot;
 	private int animStage;
 	private LivingEntity character;
+	private final Body body;
 
-	public Axe(LivingEntity character) {
+	public Axe(World world, LivingEntity character) {
 		this.character = character;
 		weaponSprite = new Sprite(ProjectShitstorm.getInstance().getTexture("yxa"));
 		weaponSprite.setSize(14 / 14f, 28 / 14f);
 		weaponSprite.setOrigin(.6f, .2f);
+
+		body = createBody(world);
+		body.setUserData(this);
+	}
+
+	private Body createBody(World world) {
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyDef.BodyType.DynamicBody;
+		bodyDef.fixedRotation = true;
+		bodyDef.position.set((weaponSprite.getX() + weaponSprite.getWidth() / 2),
+				(weaponSprite.getY() + weaponSprite.getHeight() / 2));
+
+
+		return world.createBody(bodyDef);
 	}
 
 	@Override
