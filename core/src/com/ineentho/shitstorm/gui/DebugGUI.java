@@ -32,7 +32,8 @@ public class DebugGUI {
         int margin = 10;
         StringBuilder sb = new StringBuilder();
         sb.append("[F3] Toggle debug menu [" + onOff(debugMenu) + "]\n");
-        sb.append("[P] Toggle physic bodies outlines [" + onOff(physicsDebug) + "]\n");
+        sb.append("[P] Toggle physic body outlines [" + onOff(physicsDebug) + "]\n");
+        sb.append("FPS: " + Gdx.graphics.getFramesPerSecond());
 
         SpriteBatch batch = new SpriteBatch();
         batch.begin();
