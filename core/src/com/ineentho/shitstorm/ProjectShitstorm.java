@@ -2,9 +2,16 @@ package com.ineentho.shitstorm;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.ineentho.shitstorm.screen.GameScreen;
 import com.ineentho.shitstorm.screen.LoadingScreen;
 
@@ -46,11 +53,21 @@ public class ProjectShitstorm extends Game {
 		}
 
 		assetManager = new AssetManager();
+		FileHandleResolver resolver = new InternalFileHandleResolver();
+		assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+		assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+
 		for(String texture : textures) {
 			assetManager.load("textures/" + texture + ".png", Texture.class);
 		}
 
 		assetManager.load("audio/axeSwing.mp3", Sound.class);
+
+		FreetypeFontLoader.FreeTypeFontLoaderParameter normal = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+		normal.fontFileName = "font/Roboto-Regular.ttf";
+		normal.fontParameters.size = 12;
+		normal.fontParameters.color = Color.BLACK;
+		assetManager.load("size12.ttf", BitmapFont.class, normal);
 	}
 
 	@Override
@@ -70,6 +87,10 @@ public class ProjectShitstorm extends Game {
 
 	public Texture getTexture(String texture) {
 		return assetManager.get("textures/" + texture + ".png", Texture.class);
+	}
+
+	public BitmapFont getFont(String font) {
+		return assetManager.get(font + ".ttf", BitmapFont.class);
 	}
 
 	public AssetManager getAssetManager() {
