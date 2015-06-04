@@ -7,14 +7,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ineentho.shitstorm.ProjectShitstorm;
 
 public class DebugGUI {
+    private static DebugGUI instance;
     private boolean debugMenu = true;
     private boolean physicsDebug = true;
+    private boolean muteAudio;
+    public DebugGUI() {
+        instance = this;
+    }
 
-    public boolean isPhysicsDebug() {
+    public static DebugGUI getInstance() {
+        return instance;
+    }
+
+    public boolean isAudioMuted() {
+        return muteAudio;
+    }
+
+    public boolean isPhysicsDebugEnabled() {
         return physicsDebug;
     }
 
-    public boolean isDebugMenu() {
+    public boolean isDebugMenuEnabled() {
         return debugMenu;
     }
 
@@ -25,6 +38,9 @@ public class DebugGUI {
         if (Gdx.input.isKeyJustPressed(Input.Keys.P))
             physicsDebug = !physicsDebug;
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.M))
+            muteAudio = !muteAudio;
+
         if (!debugMenu)
             return;
 
@@ -33,6 +49,7 @@ public class DebugGUI {
         StringBuilder sb = new StringBuilder();
         sb.append("[F3] Toggle debug menu [" + onOff(debugMenu) + "]\n");
         sb.append("[P] Toggle physic body outlines [" + onOff(physicsDebug) + "]\n");
+        sb.append("[M] Mute audio [" + onOff(muteAudio) + "]\n");
         sb.append("FPS: " + Gdx.graphics.getFramesPerSecond());
 
         SpriteBatch batch = new SpriteBatch();

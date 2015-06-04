@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.ineentho.shitstorm.ProjectShitstorm;
 import com.ineentho.shitstorm.collision.BodyTypes;
 import com.ineentho.shitstorm.collision.CollisionableEntity;
+import com.ineentho.shitstorm.gui.DebugGUI;
 import com.ineentho.shitstorm.util.Facing;
 import com.ineentho.shitstorm.weapon.Axe;
 import com.ineentho.shitstorm.weapon.Weapon;
@@ -149,7 +150,7 @@ public class LivingEntity implements CollisionableEntity {
     }
 
     public void attack() {
-        if (weapon.attack())
+        if (weapon.attack() && !DebugGUI.getInstance().isAudioMuted())
             ProjectShitstorm.getInstance().playSound("axeSwing");
     }
 

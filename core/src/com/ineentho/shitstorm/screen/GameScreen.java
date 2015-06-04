@@ -96,7 +96,7 @@ public class GameScreen extends ScreenAdapter {
         }
 
         drawGame();
-        if (debugGUI.isPhysicsDebug())
+        if (debugGUI.isPhysicsDebugEnabled())
             debugRenderer.render(world, cam.combined);
         drawGUI();
     }
