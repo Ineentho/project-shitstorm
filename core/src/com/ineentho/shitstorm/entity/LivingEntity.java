@@ -208,4 +208,8 @@ public class LivingEntity implements CollisionableEntity {
     public World getWorld() {
         return world;
     }
+
+    public void kill() {
+        world.destroyBody(body);
+    }
 }

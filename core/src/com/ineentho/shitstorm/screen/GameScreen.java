@@ -20,7 +20,7 @@ import com.ineentho.shitstorm.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameScreen extends ScreenAdapter {
+public class GameScreen extends ScreenAdapter implements DebugGUI.OnAction {
     private static DebugGUI debugGUI;
     private final OrthographicCamera cam;
     private final World world;
@@ -33,6 +33,8 @@ public class GameScreen extends ScreenAdapter {
 
         if (debugGUI == null)
             debugGUI = new DebugGUI();
+
+        debugGUI.setListener(this);
 
         world = new World(new Vector2(0f, -9.82f), true);
         world.setContactListener(new CollisionListener());
@@ -51,7 +53,6 @@ public class GameScreen extends ScreenAdapter {
         LivingEntity eyes = new AiEntity(world, game.getTexture("eyes"), new Vector2(1, 1));
         eyes.teleport(new Vector2(5, 0), 0);
         entities.add(eyes);
-
 
         debugRenderer = new Box2DDebugRenderer();
 
@@ -133,5 +134,29 @@ public class GameScreen extends ScreenAdapter {
         cam.viewportWidth = scale * width;
         cam.viewportHeight = scale * height;
         cam.update();
+    }
+
+    private void killAll() {
+        List<LivingEntity> toRemove = new ArrayList<LivingEntity>();
+        for (LivingEntity entity : entities) {
+            if (entity != mainChar) {
+                entity.kill();
+                toRemove.add(entity);
+            }
+        }
+
+        for (LivingEntity livingEntity : toRemove) {
+            entities.remove(livingEntity);
+        }
+    }
+
+    @Override
+    public void onKillAll() {
+        killAll();
+    }
+
+    @Override
+    public void onRestart() {
+        ProjectShitstorm.getInstance().restartGame();
     }
 }
